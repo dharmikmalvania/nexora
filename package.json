@@ -1,24 +1,16 @@
 {
-  "name": "Nexora",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
- "scripts": {
-  "dev": "tsx watch src/server.ts",
-  "build": "tsc",
-  "start": "node dist/server.js",
-  "lint": "pnpm --filter server lint",
-  "lint:fix": "pnpm --filter server lint:fix"
-},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.12.0",
-      "onFail": "download"
-    }
+  "name": "nexora",
+  "private": true,
+  "packageManager": "pnpm@11.12.0",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+  "start": "node dist/server.js"
   },
-  "type": "module"
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "prisma": "6.16.2",
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2"
+  }
 }
