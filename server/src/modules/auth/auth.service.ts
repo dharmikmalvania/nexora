@@ -1,4 +1,5 @@
-import { hashPassword } from "../../lib/hash";
+import {comparePassword, hashPassword } from "../../lib/hash";
+import { generateToken } from "../../lib/jwt";
 import { userRepository } from "../../repositories/user.repository";
 
 interface RegisterUserInput {
@@ -39,6 +40,34 @@ export class AuthService {
       createdAt: user.createdAt,
     };
   }
+  async login(email: string, password: string) {
+  const user = await userRepository.findByEmail(email);
+
+  if (!user) {
+    throw new Error("Invalid email or password");
+  }
+
+  const isPasswordValid = await comparePassword(
+    password,
+    user.password
+  );
+
+  if (!isPasswordValid) {
+    throw new Error("Invalid email or password");
+  }
+
+  const token = generateToken(user.id);
+
+  return {
+    token,
+    user: {
+      id: user.id,
+      fullName: user.fullName,
+      username: user.username,
+      email: user.email,
+    },
+  };
+}
 }
 
 export const authService = new AuthService();

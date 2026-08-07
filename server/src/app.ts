@@ -4,7 +4,7 @@ import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
-
+import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 import authRoutes from "./modules/auth/auth.routes";
 
 import { notFoundHandler } from "./middleware/not-found.middleware";
@@ -47,6 +47,7 @@ app.get("/", (_req, res) => {
  * API Routes
  */
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 /**
  * 404 Handler
@@ -57,5 +58,6 @@ app.use(notFoundHandler);
  * Global Error Handler
  */
 app.use(errorHandler);
+
 
 export default app;

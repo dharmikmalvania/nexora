@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { authService } from "./auth.service";
-import { registerSchema } from "./auth.validation";
+import { registerSchema , loginSchema } from "./auth.validation";
 import { successResponse } from "../../lib/api-response";
 
 class AuthController {
@@ -25,6 +25,26 @@ class AuthController {
       next(error);
     }
   };
+  public login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const body = loginSchema.parse(req.body);
+
+    const result = await authService.login(
+      body.email,
+      body.password
+    );
+
+    return res.status(200).json(
+      successResponse("Login successful", result)
+    );
+  } catch (error) {
+    next(error);
+  }
+};
 }
 
 export const authController = new AuthController();
