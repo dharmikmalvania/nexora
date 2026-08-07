@@ -15,6 +15,13 @@
       "when": 1785919812968,
       "tag": "0001_narrow_goliath",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1785920716498,
+      "tag": "0002_clumsy_wendigo",
+      "breakpoints": true
     }
   ]
 }
