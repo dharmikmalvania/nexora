@@ -4,9 +4,11 @@ import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 import authRoutes from "./modules/auth/auth.routes";
 import workspaceRoutes from "./modules/workspace/workspace.routes";
+import noteRoutes from "./modules/notes/note.routes";
 
 import { notFoundHandler } from "./middleware/not-found.middleware";
 import { errorHandler } from "./middleware/error.middleware";
@@ -48,8 +50,20 @@ app.get("/", (_req, res) => {
  * API Routes
  */
 app.use("/api/auth", authRoutes);
+
 app.use("/api/dashboard", dashboardRoutes);
+
 app.use("/api/workspaces", workspaceRoutes);
+
+/**
+ * Notes routes
+ *
+ * note.routes.ts already contains:
+ * /workspaces/:workspaceId/notes
+ * /notes/:id
+ */
+app.use("/api", noteRoutes);
+
 /**
  * 404 Handler
  */
@@ -59,6 +73,5 @@ app.use(notFoundHandler);
  * Global Error Handler
  */
 app.use(errorHandler);
-
 
 export default app;
