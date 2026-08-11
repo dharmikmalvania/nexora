@@ -3,6 +3,15 @@ import { users } from "../db/schema";
 import { eq } from "drizzle-orm";
 
 export class UserRepository {
+
+async findById(id: number) {
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, id));
+
+  return result[0] ?? null;
+}
   async findByEmail(email: string) {
     const result = await db
       .select()

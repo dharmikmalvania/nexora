@@ -6,6 +6,7 @@ import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 import authRoutes from "./modules/auth/auth.routes";
+import workspaceRoutes from "./modules/workspace/workspace.routes";
 
 import { notFoundHandler } from "./middleware/not-found.middleware";
 import { errorHandler } from "./middleware/error.middleware";
@@ -48,7 +49,7 @@ app.get("/", (_req, res) => {
  */
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-
+app.use("/api/workspaces", workspaceRoutes);
 /**
  * 404 Handler
  */
