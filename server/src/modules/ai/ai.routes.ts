@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { dashboardController } from "./dashboard.controller";
+
+import { aiController } from "./ai.controller";
 import { authMiddleware } from "../../middleware/auth.middleware";
 
 const router = Router();
 
-router.get(
-  "/",
+router.post(
+  "/explain",
   authMiddleware,
-  dashboardController.getDashboard
+  aiController.explain
 );
 
 export default router;

@@ -9,7 +9,8 @@ import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 import authRoutes from "./modules/auth/auth.routes";
 import workspaceRoutes from "./modules/workspace/workspace.routes";
 import noteRoutes from "./modules/notes/note.routes";
-
+import taskRoutes from "./modules/tasks/task.routes";
+import aiRoutes from "./modules/ai/ai.routes";
 import { notFoundHandler } from "./middleware/not-found.middleware";
 import { errorHandler } from "./middleware/error.middleware";
 
@@ -27,13 +28,10 @@ app.use(
 );
 
 app.use(compression());
-
 app.use(morgan("dev"));
-
 app.use(cookieParser());
-
+app.use("/api/ai", aiRoutes);
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
 /**
@@ -46,6 +44,12 @@ app.get("/", (_req, res) => {
   });
 });
 
+app.get("/api/dashboard-test", (_req, res) => {
+  res.json({
+    success: true,
+    message: "Dashboard route mounting works",
+  });
+});
 /**
  * API Routes
  */
@@ -55,14 +59,9 @@ app.use("/api/dashboard", dashboardRoutes);
 
 app.use("/api/workspaces", workspaceRoutes);
 
-/**
- * Notes routes
- *
- * note.routes.ts already contains:
- * /workspaces/:workspaceId/notes
- * /notes/:id
- */
 app.use("/api", noteRoutes);
+
+app.use("/api", taskRoutes);
 
 /**
  * 404 Handler
